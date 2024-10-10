@@ -1,6 +1,7 @@
 /* Desenvolva sua estilização aqui ... */
 header{
     margin-top: 77px;
+    margin-bottom: 62px;
 }
 
 header div{
@@ -31,4 +32,150 @@ img{
 .button-dark-mode figure{
     height: 18px;
     width: 16px;
+}
+.div-all-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+.div-title-filter{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.div-title-filter h2{
+    font-size: var(--font-2);
+    color: var(--color-grey-1);
+    font-weight: 600;
+}
+
+.div-title-filter div{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.categorie-button{
+    border: none;
+    padding: 16px 8px;
+    border-radius: var(--radius-1);
+    background-color: var(--color-grey-8);
+    color: var(--color-grey-2);
+    font-weight: 500;
+    font-size: var(--font-3);
+    cursor: pointer;
+}
+
+.div-define-filter{
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.div-define-price{
+    display: flex;
+    justify-content: space-between;
+    color: var(--color-grey-2);
+    font-size: var(--font-2);
+    font-weight: 500;
+}
+
+.text-define-price{
+    font-size: var(--font-2);
+    font-weight: 600;
+    color: var(--color-grey-1);
+}
+
+input[type=range] {
+    -webkit-appearance: none; 
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none; 
+    appearance: none;
+    width: 24px;
+    height: 24px;
+    background: white;
+    border: 7px solid  var(--color-brand-1);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.div-musics{
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.div-musics h1 {
+    font-size: var(--font-2);
+    font-weight: 600;
+    color: var(--color-grey-1);
+}
+
+.list-musics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
+}
+.list-musics li{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 308px;
+    height: 259px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.div-all-informationa{
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.music-image{
+    width: 100%;
+    height: 113px;
+}
+
+.div-singer{
+    display: flex;
+    gap: 20px;
+    color: var(--color-grey-2);
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.name-music{
+    font-size: var(--font-2);
+    font-weight: 600;
+    color: var(--color-grey-1);
+}
+
+.div-price-music{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-3);
+}
+
+.div-price-music strong{
+    color: var(--color-grey-1);
+    font-weight: 600;
+}
+
+.div-price-music button{
+    background-color: var(--color-grey-7);
+    padding: 8px 16px;
+    color: var(--color-grey-2);
+    font-weight: 500;
+    border: none;
 }
