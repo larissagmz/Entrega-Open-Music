@@ -1,6 +1,6 @@
 /* Desenvolva sua lógica aqui ... */
 let body = document.body;
-
+let darkMode1 = false;
 function renderHeader() {
     let header = document.createElement("header");
     let container = document.createElement("div");
@@ -12,8 +12,9 @@ function renderHeader() {
     titleHeader.innerText = "open music";
     buttonDarkMode.className = "button-dark-mode";
     img.src = "./src/assets/img/moon.svg";
+    img.className = "img-moon";
     figure.className = "image-dark-mode";
-    container.className = "container";
+    container.className = "container div-header";
 
     document.body.insertBefore(header, body.children[0]);
     header.append(container);
@@ -59,6 +60,7 @@ function renderFilterMusic(products, categories) {
     divDefinePrice.className = "div-define-price";
 
     h2.innerText = "Genero musical";
+    h2.className = "title-filter";
 
     input.id = "filter";
     input.type = "range";
@@ -113,29 +115,52 @@ function renderFilterMusic(products, categories) {
 }
 
 function filterMusic(list) {
-    let listbuttons = document.querySelectorAll(".categorie-button");
+    const listButtons = document.querySelectorAll(".categorie-button");
+    const input = document.querySelector("#filter");
 
-    console.log(listbuttons);
     function removeDivMusics() {
-        let divMusics = document.querySelector(".div-musics");
-
-        divMusics.remove();
+        const divMusics = document.querySelector(".div-musics");
+        if (divMusics) {
+            divMusics.remove();
+        }
     }
-    listbuttons.forEach((element) => {
-        element.addEventListener("click", (e) => {
-            let id = Number(element.getAttribute("data-id"));
-            if (id === 0) {
-                removeDivMusics();
-                renderMusic(list);
-                return;
-            }
-            let listFiltred = products.filter((x) => x.category === id);
-            removeDivMusics();
-            renderMusic(listFiltred);
+
+    function updateMusicDisplay() {
+        const categoryId =
+            Number(
+                document
+                    .querySelector(".categorie-button.active")
+                    .getAttribute("data-id")
+            ) || 0;
+        let filteredList;
+
+        if (categoryId === 0) {
+            filteredList = list;
+        } else {
+            filteredList = list.filter(
+                (music) => music.category === categoryId
+            );
+        }
+
+        const maxPrice = input.value;
+
+        filteredList = filteredList.filter((music) => music.price <= maxPrice);
+
+        removeDivMusics();
+        renderMusic(filteredList);
+    }
+
+    listButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+            listButtons.forEach((btn) => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            updateMusicDisplay();
         });
     });
-}
 
+    input.addEventListener("input", updateMusicDisplay);
+}
 function formatToBRL(value) {
     return new Intl.NumberFormat("pt-BR", {
         style: "currency",
@@ -151,6 +176,7 @@ function renderMusic(list) {
     let ul = document.createElement("ul");
 
     h1.innerText = "Albuns Encontrados";
+    h1.className = "title-div-music";
     divMusics.className = "div-musics";
     ul.className = "list-musics";
 
@@ -184,8 +210,11 @@ function renderMusic(list) {
         nameMusic.innerText = element.title;
         divPrice.className = "div-price-music";
         price.innerText = priceFormated;
+        price.className = "price-music";
         buttonBuy.innerText = "Comprar";
+        buttonBuy.className = "button-buy";
         divAllInformations.className = "div-all-informationa";
+        liMusic.className = "li-music";
 
         liMusic.append(figure, divAllInformations);
         divAllInformations.append(divSinger, nameMusic, divPrice);
@@ -197,7 +226,62 @@ function renderMusic(list) {
     main.append(divMusics);
 }
 
+function renderDarkMode(list) {
+    const header = document.querySelector(".div-header");
+
+    const buttons = document.querySelectorAll(".categorie-button");
+    const titleFilter = document.querySelector(".title-filter");
+    const divDefinePrice = document.querySelector(".div-define-price");
+    const titleDivMusic = document.querySelector(".title-div-music");
+    const music = document.querySelectorAll(".li-music");
+    const nameMusic = document.querySelectorAll(".name-music");
+    const priceMusic = document.querySelectorAll(".price-music");
+    const buttonBuy = document.querySelectorAll(".button-buy");
+    const divSinger = document.querySelectorAll(".div-singer");
+    const img = document.querySelector(".img-moon");
+
+    darkMode1 = !darkMode1;
+
+    body.classList.toggle("dark-mode");
+    header.children[0].classList.toggle("dark-mode-4");
+    header.children[1].classList.toggle("buttons-dark-mode");
+    titleFilter.classList.toggle("dark-mode-1");
+    divDefinePrice.children[0].classList.toggle("dark-mode-1");
+    divDefinePrice.children[1].classList.toggle("dark-mode-2");
+    titleDivMusic.classList.toggle("dark-mode-1");
+
+    if (darkMode1) {
+        img.src = "./src/assets/sun.png";
+    } else {
+        img.src = "./src/assets/img/moon.svg";
+    }
+
+    buttonBuy.forEach((button) => {
+        button.classList.toggle("dark-mode-button-buy");
+    });
+    divSinger.forEach((singer) => {
+        singer.classList.toggle("dark-mode-2");
+    });
+    priceMusic.forEach((price) => {
+        price.classList.toggle("dark-mode-4");
+    });
+    nameMusic.forEach((musicName) => {
+        musicName.classList.toggle("dark-mode-4");
+    });
+    music.forEach((music) => {
+        music.classList.toggle("dark-mode-3");
+    });
+    buttons.forEach((button) => {
+        button.classList.toggle("buttons-dark-mode");
+    });
+}
+function darkMode() {
+    const buttonDarkMode = document.querySelector(".button-dark-mode");
+    buttonDarkMode.addEventListener("click", renderDarkMode);
+}
+
 renderHeader();
 
 renderMain(products);
 filterMusic(products);
+darkMode();

@@ -58,7 +58,7 @@ img{
 
 .categorie-button{
     border: none;
-    padding: 16px 8px;
+    padding: 10px 8px;
     border-radius: var(--radius-1);
     background-color: var(--color-grey-8);
     color: var(--color-grey-2);
@@ -178,4 +178,34 @@ input[type=range]::-webkit-slider-thumb {
     color: var(--color-grey-2);
     font-weight: 500;
     border: none;
+}
+
+
+
+body.dark-mode{
+    background-color: var(--color-grey-2);
+}
+.buttons-dark-mode{
+    background-color: var(--color-grey-1) !important;
+    color: var(--color-grey-3);
+}
+
+.dark-mode-1{
+    color: var(--color-grey-4) !important;
+}
+
+.dark-mode-2{
+    color: var(--color-grey-3);
+}
+
+.dark-mode-3{
+    background-color: var(--color-grey-1) !important;
+}
+
+.dark-mode-4{
+    color:  var(--color-grey-8) !important;
+}
+.dark-mode-button-buy{
+    background-color: var(--color-grey-2) !important;
+    color: var(--color-grey-5) !important;
 }
