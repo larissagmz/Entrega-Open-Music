@@ -27,12 +27,22 @@ function renderMain(list) {
     let main = document.createElement("main");
     main.className = "main";
     main.className = "container";
+
     document.body.insertBefore(main, body.children[1]);
-    renderFilterMusic(list, categories);
+
+    const activeCategoryId = localStorage.getItem("activeCategoryId") || 0;
+    renderHeader();
+    renderFilterMusic(list, categories, activeCategoryId);
     renderMusic(list);
+
+    if (localStorage.getItem("darkMode") === "true") {
+        darkMode1 = true;
+        body.classList.add("dark-mode");
+        document.querySelector(".img-moon").src = "./src/assets/sun.png";
+    }
 }
 
-function renderFilterMusic(products, categories) {
+function renderFilterMusic(products, categories, activeCategoryId) {
     let main = document.querySelector("main");
 
     let div = document.createElement("div");
@@ -54,7 +64,7 @@ function renderFilterMusic(products, categories) {
         (min, product) => Math.min(min, product.price),
         Infinity
     );
-
+    input.value = maxPrice;
     div.className = "div-all-filter";
     divTitleFilter.className = "div-title-filter";
     divDefinePrice.className = "div-define-price";
@@ -90,6 +100,9 @@ function renderFilterMusic(products, categories) {
         button.className = "categorie-button";
         titleButton.innerText = element;
 
+        if (index == activeCategoryId) {
+            button.classList.add("active");
+        }
         button.append(titleButton);
         divButtonsFilter.append(button);
         return button;
@@ -145,14 +158,20 @@ function filterMusic(list) {
         const maxPrice = input.value;
 
         filteredList = filteredList.filter((music) => music.price <= maxPrice);
-
+        localStorage.setItem("activeCategoryId", categoryId);
+        listButtons[categoryId].classList.add("categorie-button-active");
         removeDivMusics();
         renderMusic(filteredList);
     }
 
+    updateMusicDisplay();
     listButtons.forEach((button) => {
         button.addEventListener("click", () => {
-            listButtons.forEach((btn) => btn.classList.remove("active"));
+            listButtons.forEach((btn) => {
+                btn.classList.remove("active"),
+                    btn.classList.remove("button-dark-mode-active");
+                btn.classList.remove("categorie-button-active");
+            });
             button.classList.add("active");
 
             updateMusicDisplay();
@@ -200,18 +219,19 @@ function renderMusic(list) {
         let buttonBuy = document.createElement("button");
         let divAllInformations = document.createElement("div");
 
-        figure.className = "music-image";
         img.src = element.img;
-        divInformations.className = "div-information-music";
-        divSinger.className = "div-singer";
         singerName.innerText = element.band;
         year.innerText = element.year;
-        nameMusic.className = "name-music";
         nameMusic.innerText = element.title;
-        divPrice.className = "div-price-music";
         price.innerText = priceFormated;
-        price.className = "price-music";
         buttonBuy.innerText = "Comprar";
+
+        figure.className = "music-image";
+        divInformations.className = "div-information-music";
+        divSinger.className = "div-singer";
+        nameMusic.className = "name-music";
+        divPrice.className = "div-price-music";
+        price.className = "price-music";
         buttonBuy.className = "button-buy";
         divAllInformations.className = "div-all-informationa";
         liMusic.className = "li-music";
@@ -224,8 +244,57 @@ function renderMusic(list) {
         ul.append(liMusic);
     });
     main.append(divMusics);
+
+    if (darkMode1) {
+        applyDarkModeClasses(ul);
+    }
 }
 
+function applyDarkModeClasses(ul) {
+    const buttons = document.querySelectorAll(".categorie-button");
+    const titleFilter = document.querySelector(".title-filter");
+    const divDefinePrice = document.querySelector(".div-define-price");
+    const titleDivMusic = document.querySelector(".title-div-music");
+    const music = document.querySelectorAll(".li-music");
+    const nameMusic = document.querySelectorAll(".name-music");
+    const priceMusic = document.querySelectorAll(".price-music");
+    const buttonBuy = document.querySelectorAll(".button-buy");
+    const divSinger = document.querySelectorAll(".div-singer");
+    const header = document.querySelector(".div-header");
+
+    const activeCategoryId = localStorage.getItem("activeCategoryId");
+
+    header.children[0].classList.add("dark-mode-4");
+    header.children[1].classList.add("buttons-dark-mode");
+
+    buttons.forEach((button) => {
+        button.classList.remove("categorie-button-active");
+        button.classList.remove("button-dark-mode-active");
+        button.className = `buttons-dark-mode ${button.className}`;
+    });
+
+    titleFilter.classList.add("dark-mode-1");
+    divDefinePrice.children[0].classList.add("dark-mode-1");
+    divDefinePrice.children[1].classList.add("dark-mode-2");
+    titleDivMusic.classList.add("dark-mode-1");
+    buttons[activeCategoryId].classList.add("button-dark-mode-active");
+
+    buttonBuy.forEach((button) => {
+        button.classList.add("dark-mode-button-buy");
+    });
+    divSinger.forEach((singer) => {
+        singer.classList.add("dark-mode-2");
+    });
+    priceMusic.forEach((price) => {
+        price.classList.add("dark-mode-4");
+    });
+    nameMusic.forEach((musicName) => {
+        musicName.classList.add("dark-mode-4");
+    });
+    music.forEach((music) => {
+        music.classList.add("dark-mode-3");
+    });
+}
 function renderDarkMode(list) {
     const header = document.querySelector(".div-header");
 
@@ -239,8 +308,11 @@ function renderDarkMode(list) {
     const buttonBuy = document.querySelectorAll(".button-buy");
     const divSinger = document.querySelectorAll(".div-singer");
     const img = document.querySelector(".img-moon");
+    const activeCategoryId = localStorage.getItem("activeCategoryId");
 
     darkMode1 = !darkMode1;
+
+    localStorage.setItem("darkMode", darkMode1);
 
     body.classList.toggle("dark-mode");
     header.children[0].classList.toggle("dark-mode-4");
@@ -273,14 +345,14 @@ function renderDarkMode(list) {
     });
     buttons.forEach((button) => {
         button.classList.toggle("buttons-dark-mode");
+        buttons[activeCategoryId].classList.add("button-dark-mode-active");
     });
 }
+
 function darkMode() {
     const buttonDarkMode = document.querySelector(".button-dark-mode");
     buttonDarkMode.addEventListener("click", renderDarkMode);
 }
-
-renderHeader();
 
 renderMain(products);
 filterMusic(products);

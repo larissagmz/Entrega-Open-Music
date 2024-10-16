@@ -21,9 +21,12 @@ img{
     height: 100%;
 }
 
+button{
+    cursor: pointer;
+}
 .button-dark-mode{
     padding: 9px 10px;
-    border: none;
+    border: 1px solid transparent;
     border-radius: var(--radius-1) ;
     background-color: var(--color-grey-8);
     cursor: pointer;
@@ -57,7 +60,7 @@ img{
 }
 
 .categorie-button{
-    border: none;
+    border: 1px solid transparent;
     padding: 10px 8px;
     border-radius: var(--radius-1);
     background-color: var(--color-grey-8);
@@ -65,6 +68,21 @@ img{
     font-weight: 500;
     font-size: var(--font-3);
     cursor: pointer;
+}
+
+.categorie-button-active{
+    background-color: var(--color-grey-1);
+    color: var(--color-grey-9);
+    pointer-events: none;
+}
+
+.categorie-button-active:hover {
+    background-color: inherit; 
+    color: inherit; 
+}
+
+.categorie-button:hover{
+    background-color: var(--color-grey-7);
 }
 
 .div-define-filter{
@@ -134,6 +152,10 @@ input[type=range]::-webkit-slider-thumb {
     margin-bottom: 20px;
 }
 
+.list-musics li:hover{
+    background-color: var(--color-grey-6);
+}
+
 .div-all-informationa{
     width: 280px;
     display: flex;
@@ -163,6 +185,7 @@ input[type=range]::-webkit-slider-thumb {
 .div-price-music{
     width: 100%;
     display: flex;
+    align-items: center;
     justify-content: space-between;
     font-size: var(--font-3);
 }
@@ -178,20 +201,43 @@ input[type=range]::-webkit-slider-thumb {
     color: var(--color-grey-2);
     font-weight: 500;
     border: none;
+    border-radius: var(--radius-1);
 }
-
-
 
 body.dark-mode{
     background-color: var(--color-grey-2);
 }
+
+button.button-dark-mode-active{
+    background-color: black;
+    border-color: var(--color-grey-8);
+    color: var(--color-grey-8);
+    pointer-events: none;
+}
+
+button.button-dark-mode-active:hover{
+    background-color: inherit; 
+    color: inherit; 
+}
+
 .buttons-dark-mode{
-    background-color: var(--color-grey-1) !important;
+    background-color: var(--color-grey-1);
     color: var(--color-grey-3);
 }
 
-.dark-mode-1{
-    color: var(--color-grey-4) !important;
+.buttons-dark-mode:hover{
+    border: 1px solid var(--color-grey-9) ;
+    color: var(--color-grey-9) ;
+    background-color: var(--color-grey-2);
+}
+
+.buttons-dark-mode:hover{
+    border: 1px solid var(--color-grey-9); 
+    color: var(--color-grey-9);
+}
+
+h2.dark-mode-1,p.dark-mode-1,h1.dark-mode-1{
+    color: var(--color-grey-4) ;
 }
 
 .dark-mode-2{
@@ -199,13 +245,22 @@ body.dark-mode{
 }
 
 .dark-mode-3{
-    background-color: var(--color-grey-1) !important;
+    background-color: var(--color-grey-1);
 }
 
-.dark-mode-4{
-    color:  var(--color-grey-8) !important;
+li.dark-mode-3:hover{
+    background-color: var(--color-grey-2);
 }
-.dark-mode-button-buy{
-    background-color: var(--color-grey-2) !important;
-    color: var(--color-grey-5) !important;
+
+h1.dark-mode-4, .dark-mode-4, strong.dark-mode-4{
+    color:  var(--color-grey-8);
+}
+
+button.dark-mode-button-buy{
+    background-color: var(--color-grey-2) ;
+    color: var(--color-grey-5) ;
+}
+
+li.dark-mode-3:hover button.dark-mode-button-buy {
+    background-color: var(--color-grey-1);
 }
